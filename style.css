@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+.word {
+  display: inline-block;
+  background-color: yellow;
+  padding: 5px 5px;
+  color: black;
+  border-radius: 25% 10%;
+}
