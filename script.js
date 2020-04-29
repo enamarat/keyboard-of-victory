@@ -8,24 +8,58 @@ const words = [
 
 
 let displayedWords = [];
+console.log(document.querySelector("#arena").offsetWidth);
+const arenaWidth = document.querySelector("#arena").offsetWidth;
 
+//let totalWidth = 0;
 const generateWord = () => {
-  const word = document.createElement("div");
-  word.className = "word";
-  const randomIndex = Math.floor(Math.random() * words.length);
-  const randomWord = words[randomIndex];
-  for (let i = 0; i < randomWord.length; i++) {
-    word.innerHTML  +=  `<span>${randomWord[i]}</span>`;
-  }
-  document.querySelector("#arena").appendChild(word);
-  displayedWords.push({name:randomWord, count:0});
+  let totalWidth = 0;
+    const myFunction = function() {
+      /**********/
+      const word = document.createElement("div");
+      word.className = "word";
+      const randomIndex = Math.floor(Math.random() * words.length);
+      const randomWord = words[randomIndex];
+      for (let i = 0; i < randomWord.length; i++) {
+        word.innerHTML  +=  `<span>${randomWord[i]}</span>`;
+      }
+      document.querySelector("#arena").appendChild(word);
+      const generatedWords = document.querySelectorAll(".word");
+  const screenWidth = window.screen.width;
+      displayedWords.push({name:randomWord, count:0});
+      generatedWords[generatedWords.length-1].style.left = totalWidth + "px";
+      /************/
+
+
+
+      if (arenaWidth-totalWidth < generatedWords[generatedWords.length-1].offsetWidth) {
+  console.log(`element's width: ${generatedWords[generatedWords.length-1].offsetWidth}`);
+  console.log(`remaining width: ${arenaWidth-totalWidth}`);
+        totalWidth = 0;
+      } else {
+        totalWidth += generatedWords[generatedWords.length-1].offsetWidth;
+      }
+      /*************/
+      //generatedWords[generatedWords.length-1].addEventListener("animationend", () => console.log("Game over!"), false);
+      /************/
+
+      return totalWidth;
+    }
+    return myFunction;
+
 }
 
-generateWord();
-generateWord();
-generateWord();
+const foo = generateWord();
+const timer = window.setInterval(()=> {
+  foo();
+}, 1000);
+
+setTimeout(() => {
+  window.clearInterval(timer);
+}, 20000);
+
+
 console.log(displayedWords);
-//setTimeout(generateWord, 1000);
 
 const typeLetters = (event) => {
   const currentWords = document.querySelectorAll(".word");
@@ -36,7 +70,6 @@ const typeLetters = (event) => {
           displayedWords[a].count += 1;
         } else {
           displayedWords[a].count = 0;
-          console.log(displayedWords[a]);
           for (let b = 0; b < document.querySelectorAll(".word")[a].childNodes.length; b++) {
              document.querySelectorAll(".word")[a].childNodes[b].style.color = "black";
              document.querySelectorAll(".word")[a].childNodes[b].style.fontWeight = "normal";
@@ -47,7 +80,6 @@ const typeLetters = (event) => {
           setTimeout(() => {
             document.querySelector("#arena").removeChild(document.querySelectorAll(".word")[a]);
             displayedWords = displayedWords.filter(word => word.name != displayedWords[a].name);
-            console.log(displayedWords);
           }, 1000);
         }
   }

@@ -1,11 +1,51 @@
 * {
   box-sizing: border-box;
+  font-size: 1.5rem;
 }
 
-.word {
-  display: inline-block;
-  background-color: yellow;
-  padding: 5px 5px;
-  color: black;
-  border-radius: 25% 10%;
+#arena {
+  height: 500px;
+  width: 100%;
+  border: 2px solid red;
+  position: relative;
 }
+
+
+
+
+      @keyframes fallToBottom {
+             0% {
+                 top: 0px;
+             }
+
+             100% {
+                 top: 444px;
+             }
+         }
+
+         @-webkit-keyframes fallToBottom {
+             0% {
+                 top: 50px;
+             }
+
+             100% {
+                 top: 444px;
+             }
+         }
+
+         .word {
+           display: inline-block;
+           background-color: yellow;
+           padding: 5px 5px;
+           color: black;
+           border-radius: 25% 10%;
+           position: absolute;
+           top: 444px;
+           /** animation **/
+           animation-name: fallToBottom;
+           animation-duration: 8s;
+           animation-timing-function: linear;
+           /* vendor prefixes */
+           -webkit-animation-name: fallToBottom;
+           -webkit-animation-duration: 8s;
+         }
