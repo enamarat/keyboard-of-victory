@@ -4,32 +4,41 @@
 }
 
 #arena {
-  height: 500px;
+  min-height: 70vh;
   width: 100%;
   border: 2px solid red;
   position: relative;
 }
 
+.gameEnded {
+  background-color: rgba(0,0,0,0.2);
+}
 
+.paused {
+  -webkit-animation-play-state:paused;
+  -moz-animation-play-state:paused;
+  -o-animation-play-state:paused;
+   animation-play-state:paused;
+}
 
 
       @keyframes fallToBottom {
              0% {
-                 top: 0px;
+                 top: 0;
              }
 
              100% {
-                 top: 444px;
+                 top: 61vh;
              }
          }
 
          @-webkit-keyframes fallToBottom {
              0% {
-                 top: 50px;
+                 top: 0;
              }
 
              100% {
-                 top: 444px;
+                 top: 61vh;
              }
          }
 
@@ -40,7 +49,8 @@
            color: black;
            border-radius: 25% 10%;
            position: absolute;
-           top: 444px;
+           /*top: 444px;*/
+           top: 61vh;
            /** animation **/
            animation-name: fallToBottom;
            animation-duration: 8s;

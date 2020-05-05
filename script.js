@@ -9,6 +9,8 @@ const words = [
 
 let displayedWords = [];
 const arenaWidth = document.querySelector("#arena").offsetWidth;
+//const arenaHeight = document.querySelector("#arena").offsetHeight;
+//console.log(arenaHeight);
 
 const generateWord = () => {
   let totalWidth = 0;
@@ -42,13 +44,15 @@ const generateWord = () => {
         totalWidth = 0;
       }
       /*************/
-      //generatedWords[generatedWords.length-1].addEventListener("animationend", () => console.log("Game over!"), false);
+      // gameOver
+      generatedWords[generatedWords.length-1].addEventListener("animationend", () => {
+        over();
+      }, false);
       /************/
 
       return totalWidth;
     }
     return myFunction;
-
 }
 
 const foo = generateWord();
@@ -60,8 +64,25 @@ setTimeout(() => {
   window.clearInterval(timer);
 }, 30000);
 
+const over = () => {
+  window.clearInterval(timer);
+  document.querySelector("body").className = "gameEnded";
+  const generatedWords = document.querySelectorAll(".word");
+  for (let i = 0; i < generatedWords.length; i++) {
+    generatedWords[i].className = "word paused";
+  }
+}
 
-console.log(displayedWords);
+
+/*const show = () => {
+    const generatedWords = document.querySelectorAll(".word");
+    for (let i = 0; i < generatedWords.length; i++) {
+
+      console.log(generatedWords[i]);
+generatedWords[i].className = "word paused";
+    }
+}
+document.querySelector("#show").addEventListener("click", show);*/
 
 const typeLetters = (event) => {
   const currentWords = document.querySelectorAll(".word");
