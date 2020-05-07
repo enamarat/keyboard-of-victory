@@ -52,18 +52,17 @@ const generateWord = () => {
 }
 
 const foo = generateWord();
-const timer = window.setInterval(()=> {
+let timer = window.setInterval(()=> {
   foo();
 }, 2000);
 
-setTimeout(() => {
+window.setTimeout(() => {
   window.clearInterval(timer);
 }, 30000);
 
 // when the game is over
 const over = () => {
   window.clearInterval(timer);
-  //document.querySelector("body").className = "gameEnded";
   const generatedWords = document.querySelectorAll(".word");
   for (let i = 0; i < generatedWords.length; i++) {
     generatedWords[i].className = "word paused";
@@ -71,6 +70,29 @@ const over = () => {
   document.querySelector("#final").style.display = "flex";
 }
 
+// restart the game
+const restart = () => {
+  // remove all displayed words from the screen
+  const generatedWords = document.querySelectorAll(".word");
+  for (let i = 0; i < generatedWords.length; i++) {
+      document.querySelector("#arena").removeChild(generatedWords[i]);
+  }
+  displayedWords = [];
+
+  // remove final screen
+  document.querySelector("#final").style.display = "none";
+
+  // start game again
+  const foo = generateWord();
+  timer = window.setInterval(()=> {
+    foo();
+  }, 2000);
+
+  window.setTimeout(() => {
+    window.clearInterval(timer);
+  }, 30000);
+}
+document.querySelector("#restart").addEventListener("click", restart);
 
 const typeLetters = (event) => {
   const currentWords = document.querySelectorAll(".word");
@@ -89,12 +111,11 @@ const typeLetters = (event) => {
         // remove word if all its letters are type correctly
         if (displayedWords[a].count === displayedWords[a].name.length) {
           document.querySelectorAll(".word")[a].style.backgroundColor = "black";
-          setTimeout(() => {
+          window.setTimeout(() => {
             document.querySelector("#arena").removeChild(document.querySelectorAll(".word")[a]);
             displayedWords = displayedWords.filter(word => word.name != displayedWords[a].name);
-          }, 1000);
+          }, 500);
         }
   }
 }
-
 window.addEventListener("keypress", typeLetters);
