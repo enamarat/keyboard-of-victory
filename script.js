@@ -51,10 +51,17 @@ const generateWord = () => {
     return myFunction;
 }
 
-const foo = generateWord();
-let timer = window.setInterval(()=> {
-  foo();
-}, 2000);
+
+// start the game for the first time
+let timer = null;
+const startGame = () => {
+  document.querySelector("#starting-screen").style.display = "none";
+  const foo = generateWord();
+  timer = window.setInterval(()=> {
+   foo();
+ }, 2000);
+}
+document.querySelector("#start").addEventListener("click", startGame);
 
 window.setTimeout(() => {
   window.clearInterval(timer);

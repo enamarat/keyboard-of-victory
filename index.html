@@ -7,19 +7,27 @@
     <link href="./styles/style.css" type="text/css" rel="stylesheet">
   </head>
   <body>
-    <div>
-      <div id="arena">
-      </div>
-
-      <div id="final">
-        <div id="wrapper">
-          <h2> Game over! </h2>
-          <p> Try again. </p>
-          <button id="restart">Restart</button>
-        </div>
-        <div>
+    <div id="starting-screen">
+      <div class="wrapper">
+        <h1>Keyboard of victory</h1>
+        <p> Words will fall from the top of the screen. Eliminate them by typing them without mistakes
+         before they reach the red line at the bottom. Should any of them succeed the game is over.
+       If you type a word incorrectly your progress will be lost, and you will have to start typing the word from the begining. </p>
+       <button id="start">Start</button>
       </div>
     </div>
+
+    <div id="arena">
+    </div>
+
+    <div id="final">
+      <div class="wrapper">
+        <h2> Game over! </h2>
+        <p> Try again. </p>
+        <button id="restart">Restart</button>
+      </div>
+    </div>
+
     <script src="./script.js"></script>
   </body>
 </html>
