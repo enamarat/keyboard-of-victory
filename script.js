@@ -8,6 +8,9 @@ const words = [
 let displayedWords = [];
 const arenaWidth = document.querySelector("#arena").offsetWidth;
 
+// time
+let startTime = null;
+
 const generateWord = () => {
   let totalWidth = 0;
     const myFunction = function() {
@@ -39,12 +42,11 @@ const generateWord = () => {
       if (arenaWidth-totalWidth < generatedWords[generatedWords.length-1].offsetWidth) {
         totalWidth = 0;
       }
-      /*************/
-      // gameOver
+
+      // game over
       generatedWords[generatedWords.length-1].addEventListener("animationend", () => {
-        over();
+        over(false);
       }, false);
-      /************/
 
       return totalWidth;
     }
@@ -54,52 +56,84 @@ const generateWord = () => {
 
 // start the game for the first time
 let timer = null;
+let timer2 = null;
 const startGame = () => {
   document.querySelector("#starting-screen").style.display = "none";
+  startTime = new Date().getTime();
   const foo = generateWord();
+
+  // this timer generates a new word every two seconds
   timer = window.setInterval(()=> {
    foo();
- }, 2000);
+  }, 2000);
+
+   // this timer counts seconds elapsed
+   timer2 = window.setInterval(()=> {
+   let currentTime = new Date().getTime();
+   let secondsElapsed = Math.floor(((currentTime - startTime)/1000));
+   document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: ${secondsElapsed}`;
+   // end of the level
+   if (secondsElapsed === 30) {
+     over(true);
+   }
+  }, 1000);
+
 }
 document.querySelector("#start").addEventListener("click", startGame);
 
-window.setTimeout(() => {
-  window.clearInterval(timer);
-}, 30000);
-
 // when the game is over
-const over = () => {
+const over = (victory) => {
   window.clearInterval(timer);
+  window.clearInterval(timer2);
   const generatedWords = document.querySelectorAll(".word");
   for (let i = 0; i < generatedWords.length; i++) {
     generatedWords[i].className = "word paused";
   }
-  document.querySelector("#final").style.display = "flex";
+  if (victory === true) {
+    document.querySelector("#victory").style.display = "flex";
+  } else if (victory === false) {
+    document.querySelector("#defeat").style.display = "flex";
+  }
 }
 
 // restart the game
 const restart = () => {
-  // remove all displayed words from the screen
-  const generatedWords = document.querySelectorAll(".word");
-  for (let i = 0; i < generatedWords.length; i++) {
-      document.querySelector("#arena").removeChild(generatedWords[i]);
-  }
-  displayedWords = [];
+   // remove all displayed words from the screen
+   const generatedWords = document.querySelectorAll(".word");
+   for (let i = 0; i < generatedWords.length; i++) {
+       document.querySelector("#arena").removeChild(generatedWords[i]);
+   }
+   displayedWords = [];
 
-  // remove final screen
-  document.querySelector("#final").style.display = "none";
+   // remove final screen
+   let finalScreens = document.querySelectorAll(".final");
+   for (let i = 0; i < finalScreens.length; i++) {
+     finalScreens[i].style.display = "none";
+   }
 
-  // start game again
-  const foo = generateWord();
-  timer = window.setInterval(()=> {
-    foo();
-  }, 2000);
+   // start game again
+   startTime = new Date().getTime();
+   const foo = generateWord();
+   timer = window.setInterval(()=> {
+     foo();
+   }, 2000);
 
-  window.setTimeout(() => {
-    window.clearInterval(timer);
-  }, 30000);
+   timer2 = window.setInterval(()=> {
+     let currentTime = new Date().getTime();
+     let secondsElapsed = Math.floor(((currentTime - startTime)/1000));
+     document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: ${secondsElapsed}`;
+     // end of the level
+     if (secondsElapsed === 30) {
+       over(true);
+     }
+
+   }, 1000);
 }
-document.querySelector("#restart").addEventListener("click", restart);
+let restartButtons = document.querySelectorAll(".restart");
+for (let i = 0; i < restartButtons.length; i++) {
+  restartButtons[i].addEventListener("click", restart);
+}
+
 
 const typeLetters = (event) => {
   const currentWords = document.querySelectorAll(".word");

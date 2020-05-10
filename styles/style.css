@@ -32,7 +32,7 @@ h1 {
 }
 
 /*** final screen ***/
-#final {
+.final {
   display: none;
   position: absolute;
   justify-content: center;
