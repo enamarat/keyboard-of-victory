@@ -57,8 +57,25 @@ const generateWord = () => {
 // start the game for the first time
 let timer = null;
 let timer2 = null;
-const startGame = () => {
-  document.querySelector("#starting-screen").style.display = "none";
+
+const startGame = (event) => {
+  if (event.target.textContent === "Start") {
+    document.querySelector("#starting-screen").style.display = "none";
+  } else if (event.target.textContent === "Restart") {
+    // remove all displayed words from the screen
+    const generatedWords = document.querySelectorAll(".word");
+    for (let i = 0; i < generatedWords.length; i++) {
+        document.querySelector("#arena").removeChild(generatedWords[i]);
+    }
+    displayedWords = [];
+
+    // remove final screen
+    let finalScreens = document.querySelectorAll(".final");
+    for (let i = 0; i < finalScreens.length; i++) {
+      finalScreens[i].style.display = "none";
+    }
+  }
+
   startTime = new Date().getTime();
   const foo = generateWord();
 
@@ -73,13 +90,15 @@ const startGame = () => {
    let secondsElapsed = Math.floor(((currentTime - startTime)/1000));
    document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: ${secondsElapsed}`;
    // end of the level
-   if (secondsElapsed === 30) {
+   if (secondsElapsed === 60) {
      over(true);
    }
   }, 1000);
-
 }
-document.querySelector("#start").addEventListener("click", startGame);
+let startButtons = document.querySelectorAll(".start");
+for (let i = 0; i < startButtons.length; i++) {
+  startButtons[i].addEventListener("click", startGame);
+}
 
 // when the game is over
 const over = (victory) => {
@@ -95,45 +114,6 @@ const over = (victory) => {
     document.querySelector("#defeat").style.display = "flex";
   }
 }
-
-// restart the game
-const restart = () => {
-   // remove all displayed words from the screen
-   const generatedWords = document.querySelectorAll(".word");
-   for (let i = 0; i < generatedWords.length; i++) {
-       document.querySelector("#arena").removeChild(generatedWords[i]);
-   }
-   displayedWords = [];
-
-   // remove final screen
-   let finalScreens = document.querySelectorAll(".final");
-   for (let i = 0; i < finalScreens.length; i++) {
-     finalScreens[i].style.display = "none";
-   }
-
-   // start game again
-   startTime = new Date().getTime();
-   const foo = generateWord();
-   timer = window.setInterval(()=> {
-     foo();
-   }, 2000);
-
-   timer2 = window.setInterval(()=> {
-     let currentTime = new Date().getTime();
-     let secondsElapsed = Math.floor(((currentTime - startTime)/1000));
-     document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: ${secondsElapsed}`;
-     // end of the level
-     if (secondsElapsed === 30) {
-       over(true);
-     }
-
-   }, 1000);
-}
-let restartButtons = document.querySelectorAll(".restart");
-for (let i = 0; i < restartButtons.length; i++) {
-  restartButtons[i].addEventListener("click", restart);
-}
-
 
 const typeLetters = (event) => {
   const currentWords = document.querySelectorAll(".word");
