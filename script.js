@@ -3,7 +3,9 @@ const words = [
   "robot", "knight", "sorcerer", "man", "bird", "lion", "boy", "girl",
   "woman", "tree", "tiger", "wolf", "bear", "snake", "reptile", "fox", "rabbit",
   "wizard", "barbarian", "skeleton", "alien", "mutant", "moose", "bull", "cow", "crow",
-  "petrol", "oil", "gas", "refrigerator"
+  "petrol", "oil", "gas", "refrigerator", "horse", "meditation", "shoes", "conclusion",
+  "pretext", "imagination", "strength", "avalanche", "trigonometry", "delusion", "courage",
+  "serenity"
 ];
 let displayedWords = [];
 const arenaWidth = document.querySelector("#arena").offsetWidth;

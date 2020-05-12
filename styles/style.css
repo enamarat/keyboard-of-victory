@@ -122,10 +122,10 @@ button:hover {
 
 .word {
   animation-name: fallToBottom;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-timing-function: linear;
   -webkit-animation-name: fallToBottom;
-  -webkit-animation-duration: 8s;
+  -webkit-animation-duration: 7s;
 }
 
 /** buttons **/
