@@ -76,6 +76,9 @@ const startGame = (event) => {
     for (let i = 0; i < finalScreens.length; i++) {
       finalScreens[i].style.display = "none";
     }
+
+    // display on the screen that seconds elapsed are now equal to zero again
+    document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: 0`;
   }
 
   startTime = new Date().getTime();
