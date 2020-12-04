@@ -7,12 +7,12 @@
 #arena {
   height: 70vh;
   width: 100%;
-  border: 2px solid red;
+  border-bottom: 5px solid red;
   position: relative;
 }
 
 
-/*** starting screnn ***/
+/*** starting screen ***/
 #starting-screen {
   display: flex;
   position: absolute;
@@ -62,8 +62,8 @@ h2 {
 
 p {
   font-size: 2rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 button {
@@ -87,9 +87,32 @@ button:hover {
   color: black;
   border-radius: 25% 10%;
   position: absolute;
-  top: 61.5vh;
+  top: calc(70vh - 55px);
 }
 
+.container {
+  text-align: center;
+}
+
+/** messages **/
+ #messages {
+   display: inline-block;
+   width: auto;
+   padding: 10px;
+   margin-top: 20px;
+   text-align: center;
+   border-radius: 25% 10%;
+   background-color: rgb(31, 133, 222);
+ }
+
+ #messages p {
+   margin-left: 10px;
+ }
+
+ .unit {
+   color: yellow;
+   font-weight: bold;
+ }
 
  /*** animations ***/
  /** words **/
@@ -99,7 +122,7 @@ button:hover {
   }
 
   100% {
-    top: 61.5vh;
+    top: calc(70vh - 55px);
   }
 }
 
@@ -109,7 +132,7 @@ button:hover {
   }
 
   100% {
-    top: 61.5vh;
+    top: calc(70vh - 55px);
   }
 }
 

@@ -12,6 +12,7 @@ const arenaWidth = document.querySelector("#arena").offsetWidth;
 
 // time
 let startTime = null;
+let wordsEliminated = 0;
 
 const generateWord = () => {
   let totalWidth = 0;
@@ -55,7 +56,6 @@ const generateWord = () => {
     return myFunction;
 }
 
-
 // start the game for the first time
 let timer = null;
 let timer2 = null;
@@ -78,7 +78,9 @@ const startGame = (event) => {
     }
 
     // display on the screen that seconds elapsed are now equal to zero again
-    document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: 0`;
+    document.querySelector("#secondsElapsed").innerHTML = `<span class='unit'>Seconds</span> elapsed: <span class="unit">0</span>`;
+    document.querySelector("#wordsEliminated").innerHTML = `<span class='unit'>Words</span> eliminated: <span class="unit">0</span>`;
+    wordsEliminated = 0;
   }
 
   startTime = new Date().getTime();
@@ -93,7 +95,7 @@ const startGame = (event) => {
    timer2 = window.setInterval(()=> {
    let currentTime = new Date().getTime();
    let secondsElapsed = Math.floor(((currentTime - startTime)/1000));
-   document.querySelector("#secondsElapsed").textContent = `Seconds elapsed: ${secondsElapsed}`;
+   document.querySelector("#secondsElapsed").innerHTML = `<span class='unit'>Seconds</span> elapsed: <span class="unit">${secondsElapsed}</span>`;
    // end of the level
    if (secondsElapsed === 60) {
      over(true);
@@ -109,6 +111,7 @@ for (let i = 0; i < startButtons.length; i++) {
 const over = (victory) => {
   window.clearInterval(timer);
   window.clearInterval(timer2);
+  wordsEliminated = 0;
   const generatedWords = document.querySelectorAll(".word");
   for (let i = 0; i < generatedWords.length; i++) {
     generatedWords[i].className = "word paused";
@@ -137,6 +140,8 @@ const typeLetters = (event) => {
         // remove word if all its letters are type correctly
         if (displayedWords[a].count === displayedWords[a].name.length) {
           document.querySelectorAll(".word")[a].style.backgroundColor = "black";
+          wordsEliminated += 1;
+          document.querySelector('#wordsEliminated').innerHTML = `<span class='unit'>Words</span> eliminated: <span class="unit">${wordsEliminated}</span>`;
           window.setTimeout(() => {
             document.querySelector("#arena").removeChild(document.querySelectorAll(".word")[a]);
             displayedWords = displayedWords.filter(word => word.name != displayedWords[a].name);
