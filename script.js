@@ -81,6 +81,9 @@ const startGame = (event) => {
     document.querySelector("#secondsElapsed").innerHTML = `<span class='unit'>Seconds</span> elapsed: <span class="unit">0</span>`;
     document.querySelector("#wordsEliminated").innerHTML = `<span class='unit'>Words</span> eliminated: <span class="unit">0</span>`;
     wordsEliminated = 0;
+
+    // activate Keyboard
+    window.addEventListener("keypress", typeLetters);
   }
 
   startTime = new Date().getTime();
@@ -121,6 +124,8 @@ const over = (victory) => {
   } else if (victory === false) {
     document.querySelector("#defeat").style.display = "flex";
   }
+  // disable Keyboard
+  window.removeEventListener("keypress", typeLetters);
 }
 
 const typeLetters = (event) => {
